@@ -1,5 +1,5 @@
 for(i in 0..10) {
-    job("DSL-Tutorial-1-Test-${i}") {
+    job("Whoami-${i}") {
         steps {
             shell("whoami")
         }
