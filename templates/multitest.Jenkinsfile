@@ -2,7 +2,7 @@ podTemplate(containers: [
     containerTemplate(name: 'maven', image: 'maven:3-alpine', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'node', image: 'node:7-alpine', ttyEnabled: true, command: 'cat')
   ]) {
-    # node(POD_LABEL) {
+    // node(POD_LABEL) {
     node() {
         stage('Get a Maven project') {
             // git url: 'https://github.com/jenkinsci/kubernetes-plugin.git'
