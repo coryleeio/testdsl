@@ -4,7 +4,7 @@ podTemplate(containers: [
   ]) {
     node(POD_LABEL) {
         stage('Get a Maven project') {
-            // git url: 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            git url: 'https://github.com/jenkinsci/kubernetes-plugin.git'
             container('maven') {
                 stage('Build a Maven project') {
                     sh 'mvn --version'
@@ -13,7 +13,7 @@ podTemplate(containers: [
         }
 
         stage('Get a Golang project') {
-            // git url: 'https://github.com/hashicorp/terraform.git'
+            git url: 'https://github.com/hashicorp/terraform.git'
             container('node') {
                 stage('Front-end') {
                     sh """
