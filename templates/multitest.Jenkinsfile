@@ -8,6 +8,7 @@ podTemplate(containers: [
             container('maven') {
                 stage('Build a Maven project') {
                     sh 'mvn --version'
+                    sh 'ls -la'
                 }
             }
         }
@@ -18,6 +19,7 @@ podTemplate(containers: [
                 stage('Front-end') {
                     sh """
                     node --version
+                    sh 'ls -la'
                     """
                 }
             }
