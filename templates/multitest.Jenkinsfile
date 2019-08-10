@@ -18,7 +18,7 @@ spec:
 """
   ) {
 
-  node(POD_LABEL) {
+  node() {
     stage('Build a Maven project') {
       git 'https://github.com/jenkinsci/kubernetes-plugin.git'
       container('maven') {
