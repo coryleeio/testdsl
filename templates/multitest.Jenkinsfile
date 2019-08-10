@@ -1,30 +1,19 @@
+/**
+ * This pipeline will execute a simple Maven build
+ */
+
 podTemplate(containers: [
-    containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'golang', image: 'golang:1.8.0', ttyEnabled: true, command: 'cat')
+  containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat')
   ]) {
 
-    node() {
-        stage('Get a Maven project') {
-            git 'https://github.com/jenkinsci/kubernetes-plugin.git'
-            container('maven') {
-                stage('Build a Maven project') {
-                    sh 'mvn -B clean install'
-                }
-            }
-        }
+  node(POD_LABEL) {
+    stage('Build a Maven project') {
+      sh 'sleep 5' // On minikube the dns sometimes wont be ready before the clone happens if you dont do this...
 
-        stage('Get a Golang project') {
-            git url: 'https://github.com/hashicorp/terraform.git'
-            container('golang') {
-                stage('Build a Go project') {
-                    sh """
-                    mkdir -p /go/src/github.com/hashicorp
-                    ln -s `pwd` /go/src/github.com/hashicorp/terraform
-                    cd /go/src/github.com/hashicorp/terraform && make core-dev
-                    """
-                }
-            }
-        }
-
+      git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+      container('maven') {
+          sh 'mvn -B clean package'
+      }
     }
+  }
 }
