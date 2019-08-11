@@ -14,6 +14,7 @@ podTemplate(containers: [
       container('maven') {
           sh 'mvn -B clean package'
       }
+      archiveArtifacts '*'
     }
   }
 }

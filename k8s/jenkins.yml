@@ -27,6 +27,7 @@ master:
     - job-dsl:1.74
     # if you update this, update plugin version below
     - configuration-as-code:1.25
+    - blueocean:1.18.1
   JCasC:
     enabled: true
     # configuration-as-code version from above
