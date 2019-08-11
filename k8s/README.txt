@@ -11,18 +11,12 @@ helm install --name jenkins stable/jenkins -f jenkins.yml
 minikube addons enable ingress
 
 
-curl -H "Host: foo.bar.com" $(minikube ip)/jenkins
 
 
 
 
 EXTRAS
-
-
 helm upgrade jenkins stable/jenkins -f jenkins.yml
-
 kubectl -n default port-forward svc/kubernetes-dashboard 8443:443
 kubectl -n default port-forward svc/jenkins 8080:8080
-
-
 minikube service jenkins --url

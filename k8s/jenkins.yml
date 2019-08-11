@@ -19,19 +19,19 @@ master:
   overwritePlugins: true
     # List of plugins to be install during Jenkins master start
   installPlugins:
-    - kubernetes:1.18.0
+    - kubernetes:1.18.1
     - workflow-job:2.33
     - workflow-aggregator:2.6
-    - credentials-binding:1.19
+    - credentials-binding:1.20
     - git:3.11.0
     - job-dsl:1.74
     # if you update this, update plugin version below
-    - configuration-as-code:1.25
+    - configuration-as-code:1.27
     - blueocean:1.18.1
   JCasC:
     enabled: true
     # configuration-as-code version from above
-    pluginVersion: "1.25"
+    pluginVersion: "1.27"
     configScripts:
       # If you want to overwrite the message it has to be done in this JCasC script because
       # it is defined in the default values.yml for the chart.
@@ -66,7 +66,7 @@ master:
 agent:
   enabled: true
   image: "jenkins/jnlp-slave"
-  tag: "3.27-1"
+  tag: "3.29-1"
   resources:
     requests:
       cpu: "200m"
