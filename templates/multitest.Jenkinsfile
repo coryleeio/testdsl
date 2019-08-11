@@ -3,7 +3,7 @@
  */
 
 podTemplate(containers: [
-  containerTemplate(name: 'maven', image: 'maven:3.6.jdk-11-slim', ttyEnabled: true, command: 'cat')
+  containerTemplate(name: 'maven', image: 'maven:3.6-jdk-11-slim', ttyEnabled: true, command: 'cat')
   ]) {
 
   node(POD_LABEL) {
