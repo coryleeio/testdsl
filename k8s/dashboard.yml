@@ -1,0 +1,17 @@
+---
+enableSkipLogin: true
+enableInsecureLogin: true
+rbac:
+  clusterAdminRole: true
+ingress:
+  enabled: true
+  hosts:
+    - k8s.dashboard
+extraArgs:
+  - --port=8443 # By default, https uses 8443 so we move it away to something else
+  - --insecure-port=9090 # The chart has 8443 hard coded as a containerPort in the deployment spec so we must use this internally for the http service
+  - --insecure-bind-address=0.0.0.0
+service:
+  type: ClusterIP
+  # Not required, but less confusing
+  externalPort: 8444

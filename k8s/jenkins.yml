@@ -1,0 +1,75 @@
+master:
+  runAsUser: 1000 # dont run Jenkins as root
+  fsGroup: 1000 # dont run Jenkins as root
+  adminUser: "admin"
+  adminPassword: admin
+  jenkinsUrl: "http://k8s.local/jenkins"
+  jenkinsUriPrefix: "/jenkins"
+  ingress:
+    enabled: true
+    hostName: k8s.local
+    path: /jenkins
+
+
+  # Setting this to ClusterIP means to reach our Jenkins from outside the cluster
+  # we will need to provide an ingress.
+  serviceType: "ClusterIP" 
+  
+  # Enable to always override the installed plugins with the values of 'master.installPlugins' on upgrade or redeployment.
+  overwritePlugins: true
+    # List of plugins to be install during Jenkins master start
+  installPlugins:
+    - kubernetes:1.18.0
+    - workflow-job:2.33
+    - workflow-aggregator:2.6
+    - credentials-binding:1.19
+    - git:3.11.0
+    - job-dsl:1.74
+    # if you update this, update plugin version below
+    - configuration-as-code:1.25
+  JCasC:
+    enabled: true
+    # configuration-as-code version from above
+    pluginVersion: "1.25"
+    configScripts:
+      # If you want to overwrite the message it has to be done in this JCasC script because
+      # it is defined in the default values.yml for the chart.
+      welcome-message: |
+        jenkins:
+          systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
+      germinate: |
+        unclassified:
+          gitscm:
+            globalConfigName: jenkins
+            globalConfigEmail: jenkins@domain.local
+            createAccountBasedOnEmail: false
+        security:
+          globalJobDslSecurityConfiguration:
+            useScriptSecurity: false
+        jobs:
+          - script: >
+              job('Seed Job') {
+                  scm {
+                      git('git://github.com/coryleeio/testdsl.git')
+                  }
+                  triggers {
+                      scm('H/15 * * * *')
+                  }
+                  steps {
+                      dsl {
+                          external('*.groovy')
+                          removeAction('DELETE')
+                      }
+                  }
+              }
+agent:
+  enabled: true
+  image: "jenkins/jnlp-slave"
+  tag: "3.27-1"
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "256Mi"
+    limits:
+      cpu: "200m"
+      memory: "1024Mi"
