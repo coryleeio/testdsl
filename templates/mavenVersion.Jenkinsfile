@@ -8,7 +8,9 @@ podTemplate(containers: [
 
   node() 
   {
+      stage('Checkout code') {
         git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+      }
   }
 
   node(POD_LABEL) {
