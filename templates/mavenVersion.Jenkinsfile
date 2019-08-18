@@ -8,6 +8,8 @@ podTemplate(containers: [
 
   node(POD_LABEL) {
     stage('Build a Maven project') {
+      sh 'sleep 10' // On minikube the dns sometimes wont be ready before the clone happens if you dont do this...
+      
       git 'https://github.com/jenkinsci/kubernetes-plugin.git'
       container('maven') {
           sh 'mvn version'
