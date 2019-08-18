@@ -10,3 +10,19 @@ for(i in 0..10) {
         }
     }
 }
+
+folder('project-b') {
+    displayName('Project B')
+    description('Folder for project B')
+}
+
+for(i in 0..10) {
+	pipelineJob('project-b/whoami${i}') {
+	    definition {
+	        cps {
+	            script(readFileFromWorkspace('templates/mavenVersion.Jenkinsfile'))
+	            sandbox()
+	        }
+	    }
+	}
+}
