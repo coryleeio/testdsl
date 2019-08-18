@@ -12,7 +12,7 @@ podTemplate(containers: [
       
       git 'https://github.com/jenkinsci/kubernetes-plugin.git'
       container('maven') {
-          sh 'mvn version'
+          sh 'mvn -version'
       }
     }
   }
