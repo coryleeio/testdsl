@@ -1,7 +1,7 @@
 pipelineJob('example') {
     definition {
         cps {
-            script(readFileFromWorkspace('templates/multitest.Jenkinsfile'))
+            script(readFileFromWorkspace('jobs/templates/multitest.Jenkinsfile'))
             sandbox()
         }
     }

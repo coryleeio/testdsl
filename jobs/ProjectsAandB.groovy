@@ -13,7 +13,7 @@ for(i in 0..10) {
 	pipelineJob("project-b/whoami${i}") {
 	    definition {
 	        cps {
-	            script(readFileFromWorkspace('templates/mavenVersion.Jenkinsfile'))
+	            script(readFileFromWorkspace('jobs/templates/mavenVersion.Jenkinsfile'))
 	            sandbox()
 	        }
 	    }
